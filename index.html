@@ -77,6 +77,13 @@
   ul.body-list li::before { content: '•'; position: absolute; left: 4px; color: var(--muted); }
   ul.body-list li strong { color: var(--ink); font-weight: 600; }
 
+  ol.body-list-num { margin: 4px 0 16px 0; padding-left: 22px; }
+  ol.body-list-num li {
+    font-size: 14px; color: var(--ink2); line-height: 1.8;
+    padding-left: 6px; margin-bottom: 10px;
+  }
+  ol.body-list-num li strong { color: var(--ink); font-weight: 600; }
+
   /* ══ SCREENSHOT PLACEHOLDER ══ */
   .shot {
     border: 1px solid var(--rule);
@@ -127,6 +134,23 @@
     color: var(--ink2); line-height: 1.6; vertical-align: top;
   }
   table.terms-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+  /* ══ HIGHLIGHT BOX (điều kiện quan trọng) ══ */
+  .highlight-box {
+    background: var(--link-bg); border: 1px solid #D6E6FB;
+    border-left: 3px solid var(--link);
+    border-radius: var(--r); padding: 16px 18px; font-size: 14px;
+    color: var(--ink2); line-height: 1.8; margin: 14px 0 22px;
+  }
+  .highlight-box strong { color: var(--ink); }
+
+  .warn-box {
+    background: #FFF8EC; border: 1px solid #F6E3B9;
+    border-left: 3px solid #C98A1B;
+    border-radius: var(--r); padding: 16px 18px; font-size: 13.5px;
+    color: var(--ink2); line-height: 1.8; margin: 14px 0 22px;
+  }
+  .warn-box strong { color: var(--ink); }
 
   /* ══ FEEDBACK BAR (mimics "was this helpful") ══ */
   .feedback-bar {
@@ -716,7 +740,7 @@
 
 <hr class="section-rule">
 
-<!-- ══════════════════════ BÀI 7 ══════════════════════ -->
+<!-- ══════════════════════ BÀI 7 (ĐÃ CẬP NHẬT NỘI DUNG) ══════════════════════ -->
 <div class="breadcrumb">
   Trung tâm hướng dẫn <span class="sep">›</span> Tài khoản <span class="sep current">Duy trì tài khoản Master</span>
 </div>
@@ -724,17 +748,40 @@
 <div class="content-wrap">
   <article class="article" id="bai7">
     <div class="article-date">Cập nhật: 30/06/2026</div>
-    <h1 class="article-title">Duy trì tài khoản Master</h1>
+    <h1 class="article-title">Điều kiện duy trì tài khoản & Quyền lợi Master</h1>
 
-    <div class="notice-box">
-      <strong>Nội dung đang cập nhật.</strong> Phần brief gốc chưa cung cấp chi tiết điều kiện duy trì tài khoản Master (ví dụ: doanh số tối thiểu/tháng, số đơn hàng tối thiểu, hoặc thời hạn không hoạt động bị tạm khóa). Vui lòng bổ sung thông tin để hoàn thiện bài viết này theo đúng cấu trúc BƯỚC 1/2/3 như các bài trên.
+    <p class="lede">Để đảm bảo quyền lợi hoa hồng <strong>Payback</strong> được duy trì ổn định, Master cần đáp ứng điều kiện về đơn hàng cá nhân hằng tháng theo quy định dưới đây.</p>
+
+    <h2 class="h2 h2-anchor" id="b7-dieukien">Điều kiện duy trì hằng tháng</h2>
+    <div class="highlight-box">
+      Từ <strong>tháng thứ 3</strong> kể từ ngày kích hoạt tài khoản (ngày thanh toán thành công đơn hàng đầu tiên), tài khoản Master cần duy trì đơn hàng cá nhân với tổng số tiền <strong>tối thiểu từ 15.000.000 VNĐ</strong> cho mỗi tháng để được nhận Payback của tháng đó.
     </div>
 
+    <h2 class="h2 h2-anchor" id="b7-quyloi">Quy định khi không duy trì đơn hàng</h2>
+    <ol class="body-list-num">
+      <li>Những tài khoản Master <strong>không duy trì đơn hàng cá nhân trong 1 tháng</strong> sẽ không được nhận Phần thưởng hoa hồng Payback của tháng đó.</li>
+      <li>Những tài khoản Master <strong>không duy trì đơn hàng cá nhân trong 3 tháng liên tiếp</strong> sẽ bị khóa tài khoản và không được giới thiệu Master và Pharmer mới vào hệ thống của mình. Để kích hoạt lại tài khoản và nhận quyền lợi đầy đủ, Master cần thực hiện mua đơn hàng duy trì cá nhân từ <strong>15.000.000 VNĐ</strong>.</li>
+      <li>Những tài khoản Master <strong>bị khóa tài khoản 2 lần trong 1 năm</strong> sẽ bị khóa vĩnh viễn trên hệ thống và không thể mở lại.</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>Lưu ý:</strong> Master nên theo dõi đơn hàng cá nhân hằng tháng trên trang quản lý tài khoản để đảm bảo đạt mức duy trì tối thiểu, tránh bị gián đoạn quyền lợi Payback hoặc bị khóa tài khoản.
+    </div>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
     <div class="pagenav">
       <a href="#bai6"><span class="lbl">← Trước đó</span>Hướng dẫn tạo mật khẩu mới</a>
       <a href="#bai8" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Sự khác biệt của Givehada</a>
     </div>
   </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b7-dieukien">Điều kiện duy trì hằng tháng</a></li>
+      <li><a href="#b7-quyloi">Quy định khi không duy trì</a></li>
+    </ul>
+  </aside>
 </div>
 
 <hr class="section-rule">
