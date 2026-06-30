@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hướng Dẫn Sử Dụng Website Givehada</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg:      #FFFFFF;
+    --ink:     #161823;
+    --ink2:    #44464F;
+    --muted:   #888A94;
+    --rule:    #EBEDF0;
+    --rule2:   #F1F2F4;
+    --link:    #1568E0;
+    --link-bg: #EEF4FE;
+    --tag-bg:  #F5F6F8;
+    --code-bg: #F7F7F8;
+    --r: 4px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 14px; }
+
+  /* ══ TOP BAR (mimics platform header) ══ */
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 32px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .topbar-logo { font-weight: 800; font-size: 16px; color: var(--ink); letter-spacing: -.01em; }
+  .topbar-divider { width: 1px; height: 16px; background: var(--rule); margin: 0 4px; }
+  .topbar-sub { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+  /* ══ LAYOUT ══ */
+  .layout { display: grid; grid-template-columns: 1fr; max-width: 1240px; margin: 0 auto; }
+
+  /* ══ BREADCRUMB ══ */
+  .breadcrumb {
+    padding: 18px 32px 0;
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .breadcrumb .sep { color: var(--rule); }
+  .breadcrumb .current { color: var(--ink2); }
+
+  .content-wrap { display: grid; grid-template-columns: 1fr 220px; gap: 56px; padding: 0 32px 100px; }
+
+  /* ══ ARTICLE ══ */
+  .article { max-width: 760px; padding-top: 28px; }
+
+  .article-date { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .article-title { font-size: 26px; font-weight: 800; line-height: 1.3; color: var(--ink); margin-bottom: 28px; letter-spacing: -.01em; }
+
+  .lede { font-size: 14px; color: var(--ink2); line-height: 1.75; margin-bottom: 26px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .h2 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 36px 0 14px; padding-top: 4px; }
+  .h2-anchor { scroll-margin-top: 24px; }
+
+  .body-text { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 16px; }
+  .body-text strong { color: var(--ink); font-weight: 600; }
+  .body-text a { color: var(--link); text-decoration: none; }
+  .body-text a:hover { text-decoration: underline; }
+
+  .step-block { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 14px; }
+  .step-block strong.step-label { color: var(--ink); font-weight: 700; }
+
+  ul.body-list { margin: 4px 0 16px 0; padding-left: 0; list-style: none; }
+  ul.body-list li {
+    font-size: 14px; color: var(--ink2); line-height: 1.8;
+    padding-left: 18px; position: relative; margin-bottom: 6px;
+  }
+  ul.body-list li::before { content: '•'; position: absolute; left: 4px; color: var(--muted); }
+  ul.body-list li strong { color: var(--ink); font-weight: 600; }
+
+  /* ══ SCREENSHOT PLACEHOLDER ══ */
+  .shot {
+    border: 1px solid var(--rule);
+    border-radius: var(--r);
+    background: var(--code-bg);
+    padding: 36px 20px;
+    text-align: center;
+    margin: 14px 0 22px;
+  }
+  .shot-icon { font-size: 22px; margin-bottom: 8px; opacity: .5; }
+  .shot-label { font-size: 12px; color: var(--muted); font-weight: 500; line-height: 1.6; }
+  .shot-label strong { color: var(--ink2); }
+  .shot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 22px; }
+  .shot-row .shot { margin: 0; }
+
+  /* ══ VIDEO REFERENCE BOX ══ */
+  .video-box {
+    border: 1px solid var(--rule);
+    border-radius: var(--r);
+    padding: 14px 18px;
+    margin: 14px 0 22px;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg);
+  }
+  .video-box-icon {
+    width: 36px; height: 36px; border-radius: var(--r); flex-shrink: 0;
+    background: var(--link-bg); color: var(--link);
+    display: flex; align-items: center; justify-content: center; font-size: 15px;
+  }
+  .video-box-text { flex: 1; }
+  .video-box-label { font-size: 11px; color: var(--muted); font-weight: 500; margin-bottom: 2px; }
+  .video-box-link { font-size: 13.5px; color: var(--link); font-weight: 600; text-decoration: none; }
+  .video-box-link:hover { text-decoration: underline; }
+  .video-box-row { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 22px; }
+
+  /* ══ DIVIDER ══ */
+  hr.section-rule { border: none; border-top: 1px solid var(--rule); margin: 44px 0; }
+
+  /* ══ TERMS TABLE ══ */
+  .terms-note { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+  table.terms-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: 13px; }
+  table.terms-table th {
+    text-align: left; font-weight: 600; color: var(--ink);
+    padding: 10px 14px; border-bottom: 1px solid var(--ink); font-size: 12px;
+  }
+  table.terms-table td {
+    padding: 12px 14px; border-bottom: 1px solid var(--rule);
+    color: var(--ink2); line-height: 1.6; vertical-align: top;
+  }
+  table.terms-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+  /* ══ FEEDBACK BAR (mimics "was this helpful") ══ */
+  .feedback-bar {
+    border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 40px;
+    font-size: 13px; color: var(--ink2); font-weight: 500;
+  }
+
+  /* ══ PREV/NEXT NAV ══ */
+  .pagenav {
+    display: flex; justify-content: space-between; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--rule);
+  }
+  .pagenav a { font-size: 13px; color: var(--ink2); text-decoration: none; font-weight: 500; }
+  .pagenav a:hover { color: var(--link); }
+  .pagenav .lbl { font-size: 11px; color: var(--muted); display: block; margin-bottom: 2px; }
+
+  /* ══ EMPTY STATE NOTE ══ */
+  .notice-box {
+    background: var(--tag-bg); border: 1px dashed var(--rule);
+    border-radius: var(--r); padding: 16px 18px; font-size: 13px;
+    color: var(--ink2); line-height: 1.7; margin: 14px 0 22px;
+  }
+  .notice-box strong { color: var(--ink); }
+
+  /* ══ RIGHT SIDEBAR – MỤC LỤC ══ */
+  .toc-sidebar { padding-top: 28px; position: sticky; top: 24px; align-self: start; }
+  .toc-title { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 14px; }
+  .toc-list { list-style: none; border-left: 2px solid var(--rule); }
+  .toc-list li { margin-bottom: 2px; }
+  .toc-list a {
+    display: block; font-size: 12.5px; color: var(--muted); text-decoration: none;
+    padding: 6px 0 6px 14px; line-height: 1.5; border-left: 2px solid transparent; margin-left: -2px;
+  }
+  .toc-list a:hover { color: var(--ink); }
+  .toc-list a.active { color: var(--link); border-left-color: var(--link); font-weight: 500; }
+
+  /* ══ ARTICLE INDEX (8 bài viết, dạng danh sách như chuyên mục) ══ */
+  .index-page { max-width: 760px; padding-top: 28px; padding-bottom: 60px; margin: 0 auto; }
+  .index-title { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+  .index-sub { font-size: 13.5px; color: var(--muted); margin-bottom: 32px; line-height: 1.7; }
+  .index-list { list-style: none; }
+  .index-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0; border-bottom: 1px solid var(--rule);
+  }
+  .index-item a { font-size: 14.5px; color: var(--link); font-weight: 500; text-decoration: none; }
+  .index-item a:hover { text-decoration: underline; }
+  .index-num { font-size: 12px; color: var(--muted); font-weight: 600; width: 28px; flex-shrink: 0; }
+  .index-item-row { display: flex; align-items: center; gap: 14px; }
+  .index-arrow { color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 900px) {
+    .content-wrap { grid-template-columns: 1fr; }
+    .toc-sidebar { display: none; }
+    .shot-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="topbar-logo">Givehada</span>
+  <span class="topbar-divider"></span>
+  <span class="topbar-sub">Trung tâm hướng dẫn Master</span>
+</div>
+
+<!-- ══════════════════════ TRANG MỤC LỤC ══════════════════════ -->
+<div class="index-page">
+  <div class="index-title">Hướng dẫn sử dụng website Givehada</div>
+  <div class="index-sub">Bộ tài liệu hướng dẫn dành cho Master và Pharmer — từ tạo tài khoản đến quản lý đơn hàng, link affiliate và payback trên hệ thống givehada.com.</div>
+
+  <ul class="index-list">
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">01</span><a href="#bai1">Hướng dẫn tạo tài khoản</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">02</span><a href="#bai2">Hướng dẫn mua hàng</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">03</span><a href="#bai3">Hướng dẫn lấy link Affiliate</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">04</span><a href="#bai4">Hướng dẫn lấy mã code giới thiệu Master mới</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">05</span><a href="#bai5">Hướng dẫn hủy đơn hàng</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">06</span><a href="#bai6">Hướng dẫn tạo mật khẩu mới</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">07</span><a href="#bai7">Duy trì tài khoản Master</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+    <li class="index-item">
+      <div class="index-item-row"><span class="index-num">08</span><a href="#bai8">Sự khác biệt của Givehada</a></div>
+      <span class="index-arrow">→</span>
+    </li>
+  </ul>
+</div>
+
+<hr class="section-rule" style="margin-top:0;">
+
+<!-- ══════════════════════ BÀI 1 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Tài khoản <span class="sep current">Hướng dẫn tạo tài khoản</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai1">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn tạo tài khoản</h1>
+
+    <p class="lede">Để bắt đầu sử dụng các tính năng dành cho <strong>Master</strong> và <strong>Pharmer</strong> trên Givehada — như mua hàng ưu đãi, lấy link affiliate, quản lý payback — bạn cần tạo tài khoản trên website <strong>givehada.com</strong>. Bài viết này hướng dẫn bạn các bước tạo tài khoản nhanh chóng.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Master</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1u57FdLni6K8J_R_Pr7q3OBSNBAwM936Q/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Pharmer</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1sFDyiACOcs12MLuWyZnBSlWdk3v3KpDP/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b1-buoc1">BƯỚC 1: Truy cập website Givehada</h2>
+    <p class="body-text">Mở trình duyệt và truy cập <strong>givehada.com</strong>. Tại trang chủ, bạn sẽ thấy nút <strong>Đăng nhập</strong> ở góc trên bên phải màn hình.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Trang chủ Givehada — khoanh vùng nút <strong>Đăng nhập</strong> góc trên phải</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b1-buoc2">BƯỚC 2: Chọn đăng ký tài khoản mới</h2>
+    <p class="body-text">Bấm vào <strong>Đăng nhập</strong>, sau đó chọn <strong>Đăng ký tài khoản mới</strong>. Chọn đúng loại tài khoản phù hợp với bạn:</p>
+    <ul class="body-list">
+      <li><strong>Master</strong> — dành cho người trực tiếp bán hàng, chăm sóc khách hàng tại cửa hàng/spa/clinic</li>
+      <li><strong>Pharmer</strong> — dành cho đối tác phân phối/dược sĩ trong hệ thống</li>
+    </ul>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Màn hình chọn loại tài khoản — <strong>Master</strong> / <strong>Pharmer</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b1-buoc3">BƯỚC 3: Điền thông tin đăng ký</h2>
+    <p class="body-text">Nhập đầy đủ các thông tin được yêu cầu: Họ và tên, Số điện thoại, Email, và đặt Mật khẩu cho tài khoản. Đảm bảo thông tin chính xác để nhận thông báo đơn hàng và payback đúng tài khoản.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Form đăng ký — Họ tên · Số điện thoại · Email · Mật khẩu</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b1-buoc4">BƯỚC 4: Xác nhận và hoàn tất</h2>
+    <p class="body-text">Bấm <strong>Hoàn tất đăng ký</strong>. Nếu hệ thống yêu cầu xác minh, kiểm tra email hoặc tin nhắn SMS để nhập mã xác nhận. Sau khi xác nhận thành công, tài khoản của bạn đã sẵn sàng sử dụng.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Thông báo <strong>Đăng ký thành công</strong></div>
+    </div>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai1"><span class="lbl">← Đầu mục</span>Hướng dẫn tạo tài khoản</a>
+      <a href="#bai2" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Hướng dẫn mua hàng</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b1-buoc1">Bước 1: Truy cập website</a></li>
+      <li><a href="#b1-buoc2">Bước 2: Chọn đăng ký</a></li>
+      <li><a href="#b1-buoc3">Bước 3: Điền thông tin</a></li>
+      <li><a href="#b1-buoc4">Bước 4: Xác nhận hoàn tất</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 2 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Mua hàng <span class="sep current">Hướng dẫn mua hàng</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai2">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn mua hàng</h1>
+
+    <p class="lede">Givehada cho phép Master đặt hàng trực tiếp trên website và <strong>giao thẳng đến tận tay khách hàng</strong> — không cần ôm hàng số lượng lớn. Bài viết hướng dẫn bạn cách đặt một đơn hàng hoàn chỉnh trên hệ thống.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Master</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1u57FdLni6K8J_R_Pr7q3OBSNBAwM936Q/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Pharmer</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1sFDyiACOcs12MLuWyZnBSlWdk3v3KpDP/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Khách lẻ</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1p0PE2VyBnPi_CtwS_-IDilkxEblPwy5H/view?usp=sharing" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b2-master" style="margin-top:8px;">Mua hàng dành cho Master</h2>
+
+    <h2 class="h2 h2-anchor" id="b2-buoc1">BƯỚC 1: Đăng nhập tài khoản</h2>
+    <p class="body-text">Truy cập givehada.com và đăng nhập bằng tài khoản Master/Pharmer của bạn.</p>
+
+    <h2 class="h2 h2-anchor" id="b2-buoc2">BƯỚC 2: Chọn danh mục sản phẩm</h2>
+    <p class="body-text">Vào menu <strong>SẢN PHẨM</strong> trên thanh điều hướng. Bạn có thể chọn theo thương hiệu hoặc xem các ưu đãi đang chạy:</p>
+    <ul class="body-list">
+      <li><strong>Hot Deal</strong> — các ưu đãi, khuyến mãi đang áp dụng</li>
+      <li><strong>Conapidil</strong></li>
+      <li><strong>Axenda</strong></li>
+      <li><strong>Vibanquentmanka</strong></li>
+      <li><strong>Merchandise</strong></li>
+    </ul>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Menu <strong>SẢN PHẨM</strong> sổ xuống — các danh mục thương hiệu</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b2-buoc3">BƯỚC 3: Chọn sản phẩm và thêm vào giỏ hàng</h2>
+    <p class="body-text">Bấm vào sản phẩm để xem chi tiết, chọn số lượng cần đặt, sau đó bấm <strong>Thêm vào giỏ hàng</strong>.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Trang chi tiết sản phẩm — nút <strong>Thêm vào giỏ hàng</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b2-buoc4">BƯỚC 4: Kiểm tra giỏ hàng và nhập địa chỉ giao</h2>
+    <p class="body-text">Bấm vào biểu tượng <strong>Cart</strong> ở góc trên bên phải để vào giỏ hàng. Kiểm tra lại các sản phẩm và số lượng, sau đó nhập thông tin người nhận:</p>
+    <ul class="body-list">
+      <li>Tên người nhận</li>
+      <li>Số điện thoại</li>
+      <li>Địa chỉ giao hàng</li>
+    </ul>
+    <p class="body-text">Lưu ý: bạn có thể nhập <strong>địa chỉ của chính khách hàng</strong> tại đây để kho công ty ship hàng trực tiếp đến khách, không cần qua tay Master.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Form nhập thông tin giao hàng trong giỏ hàng</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b2-buoc5">BƯỚC 5: Chọn thanh toán và đặt hàng</h2>
+    <p class="body-text">Chọn phương thức thanh toán phù hợp, kiểm tra lại tổng giá trị đơn hàng, sau đó bấm <strong>Đặt hàng</strong> để hoàn tất.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Màn hình xác nhận <strong>Đặt hàng thành công</strong></div>
+    </div>
+
+    <hr class="section-rule" style="margin:36px 0;">
+
+    <h2 class="h2 h2-anchor" id="b2-khachle">Mua hàng dành cho Khách lẻ</h2>
+    <p class="body-text">Khách lẻ có thể tự đặt mua sản phẩm trực tiếp trên website givehada.com mà không cần thông qua Master, theo các bước trong video hướng dẫn bên trên.</p>
+
+    <div class="notice-box">
+      <strong>Nội dung đang cập nhật.</strong> Các bước chi tiết (BƯỚC 1/2/3...) cho luồng mua hàng Khách lẻ sẽ được bổ sung dựa trên nội dung video hướng dẫn đã đính kèm ở trên. Vui lòng đối chiếu video và cung cấp mô tả từng bước thao tác để hoàn thiện phần này theo đúng cấu trúc các bài viết khác.
+    </div>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai1"><span class="lbl">← Trước đó</span>Hướng dẫn tạo tài khoản</a>
+      <a href="#bai3" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Hướng dẫn lấy link Affiliate</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b2-master">Mua hàng — Master</a></li>
+      <li><a href="#b2-buoc1">Bước 1: Đăng nhập</a></li>
+      <li><a href="#b2-buoc2">Bước 2: Chọn danh mục</a></li>
+      <li><a href="#b2-buoc3">Bước 3: Thêm vào giỏ</a></li>
+      <li><a href="#b2-buoc4">Bước 4: Nhập địa chỉ giao</a></li>
+      <li><a href="#b2-buoc5">Bước 5: Thanh toán</a></li>
+      <li><a href="#b2-khachle">Mua hàng — Khách lẻ</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 3 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Affiliate <span class="sep current">Hướng dẫn lấy link Affiliate</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai3">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn lấy link Affiliate</h1>
+
+    <p class="lede">Mỗi Master có một <strong>link affiliate cá nhân</strong> trên hệ thống. Khi khách hàng mua sản phẩm thông qua link này, hệ thống sẽ <strong>tự động lưu trữ thông tin và tính payback</strong> cho bạn — không cần theo dõi hay đối soát thủ công.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Master</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1u57FdLni6K8J_R_Pr7q3OBSNBAwM936Q/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Pharmer</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1sFDyiACOcs12MLuWyZnBSlWdk3v3KpDP/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b3-buoc1">BƯỚC 1: Vào trang quản lý tài khoản</h2>
+    <p class="body-text">Đăng nhập givehada.com, bấm vào tên hoặc ảnh đại diện của bạn ở góc trên bên phải để vào trang quản lý tài khoản.</p>
+
+    <h2 class="h2 h2-anchor" id="b3-buoc2">BƯỚC 2: Chọn mục Affiliate</h2>
+    <p class="body-text">Trong menu tài khoản, tìm và chọn mục <strong>Affiliate</strong> hoặc <strong>Link giới thiệu của tôi</strong>.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Menu tài khoản — mục <strong>Affiliate / Link giới thiệu của tôi</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b3-buoc3">BƯỚC 3: Sao chép link Affiliate</h2>
+    <p class="body-text">Hệ thống hiển thị link affiliate riêng gắn liền với tài khoản của bạn. Bấm nút <strong>Sao chép</strong> để copy đường link này.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Link affiliate cá nhân — nút <strong>Sao chép link</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b3-buoc4">BƯỚC 4: Gửi link cho khách hàng</h2>
+    <p class="body-text">Dán link vào Zalo, tin nhắn, hoặc bất kỳ kênh nào để gửi cho khách hàng của bạn. Mọi đơn hàng khách đặt qua link này đều được hệ thống ghi nhận và tính payback tự động cho bạn.</p>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai2"><span class="lbl">← Trước đó</span>Hướng dẫn mua hàng</a>
+      <a href="#bai4" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Mã giới thiệu Master mới</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b3-buoc1">Bước 1: Vào trang tài khoản</a></li>
+      <li><a href="#b3-buoc2">Bước 2: Chọn mục Affiliate</a></li>
+      <li><a href="#b3-buoc3">Bước 3: Sao chép link</a></li>
+      <li><a href="#b3-buoc4">Bước 4: Gửi cho khách</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 4 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Giới thiệu <span class="sep current">Mã giới thiệu Master mới</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai4">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn lấy mã code giới thiệu Master mới</h1>
+
+    <p class="lede">Nếu bạn muốn giới thiệu người quen tham gia trở thành Master của Givehada, bạn có thể sử dụng <strong>mã code giới thiệu riêng</strong> trên tài khoản của mình. Khi Master mới nhập đúng mã lúc đăng ký, hệ thống sẽ tự động ghi nhận bạn là người giới thiệu.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Master</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1u57FdLni6K8J_R_Pr7q3OBSNBAwM936Q/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Pharmer</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1sFDyiACOcs12MLuWyZnBSlWdk3v3KpDP/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b4-buoc1">BƯỚC 1: Vào trang quản lý tài khoản</h2>
+    <p class="body-text">Đăng nhập givehada.com, vào trang quản lý tài khoản như bình thường.</p>
+
+    <h2 class="h2 h2-anchor" id="b4-buoc2">BƯỚC 2: Chọn mục Giới thiệu Master mới</h2>
+    <p class="body-text">Trong menu tài khoản, tìm và chọn mục <strong>Giới thiệu Master mới</strong> hoặc <strong>Mã giới thiệu</strong>.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Menu tài khoản — mục <strong>Giới thiệu Master mới</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b4-buoc3">BƯỚC 3: Sao chép mã giới thiệu</h2>
+    <p class="body-text">Hệ thống hiển thị mã code riêng của bạn. Bấm <strong>Sao chép mã</strong> để lấy mã này.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Mã giới thiệu cá nhân — nút <strong>Sao chép mã</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b4-buoc4">BƯỚC 4: Gửi mã cho người được giới thiệu</h2>
+    <p class="body-text">Cung cấp mã này cho người bạn muốn giới thiệu trở thành Master. Khi họ nhập mã vào lúc đăng ký tài khoản, hệ thống sẽ tự động ghi nhận bạn là người giới thiệu họ.</p>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai3"><span class="lbl">← Trước đó</span>Hướng dẫn lấy link Affiliate</a>
+      <a href="#bai5" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Hướng dẫn hủy đơn hàng</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b4-buoc1">Bước 1: Vào trang tài khoản</a></li>
+      <li><a href="#b4-buoc2">Bước 2: Chọn mục giới thiệu</a></li>
+      <li><a href="#b4-buoc3">Bước 3: Sao chép mã</a></li>
+      <li><a href="#b4-buoc4">Bước 4: Gửi mã</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 5 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Đơn hàng <span class="sep current">Hướng dẫn hủy đơn hàng</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai5">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn hủy đơn hàng</h1>
+
+    <p class="lede">Trong trường hợp cần hủy đơn hàng đã đặt, bạn có thể thực hiện trực tiếp trên website mà không cần liên hệ tổng đài. Lưu ý: chỉ áp dụng được với đơn ở trạng thái <strong>Chờ xác nhận</strong> hoặc <strong>Đang xử lý</strong>.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Master</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1u57FdLni6K8J_R_Pr7q3OBSNBAwM936Q/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn — Pharmer</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1sFDyiACOcs12MLuWyZnBSlWdk3v3KpDP/view?usp=drivesdk" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b5-buoc1">BƯỚC 1: Vào mục Đơn hàng của tôi</h2>
+    <p class="body-text">Đăng nhập givehada.com, vào trang tài khoản, chọn mục <strong>Đơn hàng của tôi</strong>.</p>
+
+    <h2 class="h2 h2-anchor" id="b5-buoc2">BƯỚC 2: Tìm đơn hàng cần hủy</h2>
+    <p class="body-text">Trong danh sách đơn hàng, tìm đơn cần hủy. Đơn chỉ có thể hủy khi đang ở một trong hai trạng thái:</p>
+    <ul class="body-list">
+      <li><strong>Chờ xác nhận</strong></li>
+      <li><strong>Đang xử lý</strong></li>
+    </ul>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Danh sách đơn hàng — các trạng thái đơn</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b5-buoc3">BƯỚC 3: Bấm Hủy đơn hàng</h2>
+    <p class="body-text">Bấm vào đơn hàng để xem chi tiết, sau đó chọn <strong>Hủy đơn hàng</strong>.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Trang chi tiết đơn hàng — nút <strong>Hủy đơn hàng</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b5-buoc4">BƯỚC 4: Chọn lý do và xác nhận hủy</h2>
+    <p class="body-text">Chọn lý do hủy đơn từ danh sách có sẵn, sau đó bấm <strong>Xác nhận</strong> để hoàn tất. Đơn hàng sẽ được hủy thành công ngay sau đó.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Hộp thoại chọn lý do hủy đơn — nút <strong>Xác nhận</strong></div>
+    </div>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai4"><span class="lbl">← Trước đó</span>Mã giới thiệu Master mới</a>
+      <a href="#bai6" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Hướng dẫn tạo mật khẩu mới</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b5-buoc1">Bước 1: Vào đơn hàng của tôi</a></li>
+      <li><a href="#b5-buoc2">Bước 2: Tìm đơn cần hủy</a></li>
+      <li><a href="#b5-buoc3">Bước 3: Bấm hủy đơn</a></li>
+      <li><a href="#b5-buoc4">Bước 4: Xác nhận hủy</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 6 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Tài khoản <span class="sep current">Hướng dẫn tạo mật khẩu mới</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai6">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Hướng dẫn tạo mật khẩu mới</h1>
+
+    <p class="lede">Nếu bạn quên mật khẩu hoặc muốn đổi mật khẩu mới cho tài khoản Givehada, bạn có thể tự thực hiện theo các bước dưới đây mà không cần liên hệ hỗ trợ.</p>
+
+    <div class="video-box-row">
+      <div class="video-box">
+        <div class="video-box-icon">▶</div>
+        <div class="video-box-text">
+          <div class="video-box-label">Video hướng dẫn</div>
+          <a class="video-box-link" href="https://drive.google.com/file/d/1pnqC14-diyz1-5pRq3mTc0AoxaJA9ZVN/view?usp=sharing" target="_blank">Xem video hướng dẫn</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b6-buoc1">BƯỚC 1: Vào trang đăng nhập</h2>
+    <p class="body-text">Truy cập givehada.com, bấm <strong>Đăng nhập</strong>.</p>
+
+    <h2 class="h2 h2-anchor" id="b6-buoc2">BƯỚC 2: Chọn "Quên mật khẩu?"</h2>
+    <p class="body-text">Ngay dưới ô nhập mật khẩu trên màn hình đăng nhập, bấm vào dòng chữ <strong>Quên mật khẩu?</strong>.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Màn hình đăng nhập — liên kết <strong>Quên mật khẩu?</strong></div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b6-buoc3">BƯỚC 3: Nhập email hoặc số điện thoại đã đăng ký</h2>
+    <p class="body-text">Nhập email hoặc số điện thoại bạn đã dùng để đăng ký tài khoản, sau đó bấm <strong>Gửi mã xác nhận</strong>.</p>
+
+    <h2 class="h2 h2-anchor" id="b6-buoc4">BƯỚC 4: Nhập mã OTP</h2>
+    <p class="body-text">Kiểm tra email hoặc tin nhắn SMS để lấy mã OTP, sau đó nhập mã vào ô xác nhận trên website.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Ô nhập mã OTP xác nhận</div>
+    </div>
+
+    <h2 class="h2 h2-anchor" id="b6-buoc5">BƯỚC 5: Đặt mật khẩu mới</h2>
+    <p class="body-text">Nhập mật khẩu mới, nhập lại một lần nữa để xác nhận, sau đó bấm <strong>Lưu thay đổi</strong>. Từ lần đăng nhập tiếp theo, bạn sử dụng mật khẩu mới này.</p>
+    <div class="shot">
+      <div class="shot-icon">🖼</div>
+      <div class="shot-label">[Ảnh minh họa] Form đặt mật khẩu mới — nút <strong>Lưu thay đổi</strong></div>
+    </div>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai5"><span class="lbl">← Trước đó</span>Hướng dẫn hủy đơn hàng</a>
+      <a href="#bai7" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Duy trì tài khoản Master</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b6-buoc1">Bước 1: Vào trang đăng nhập</a></li>
+      <li><a href="#b6-buoc2">Bước 2: Chọn quên mật khẩu</a></li>
+      <li><a href="#b6-buoc3">Bước 3: Nhập email/SĐT</a></li>
+      <li><a href="#b6-buoc4">Bước 4: Nhập mã OTP</a></li>
+      <li><a href="#b6-buoc5">Bước 5: Đặt mật khẩu mới</a></li>
+    </ul>
+  </aside>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 7 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Tài khoản <span class="sep current">Duy trì tài khoản Master</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai7">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Duy trì tài khoản Master</h1>
+
+    <div class="notice-box">
+      <strong>Nội dung đang cập nhật.</strong> Phần brief gốc chưa cung cấp chi tiết điều kiện duy trì tài khoản Master (ví dụ: doanh số tối thiểu/tháng, số đơn hàng tối thiểu, hoặc thời hạn không hoạt động bị tạm khóa). Vui lòng bổ sung thông tin để hoàn thiện bài viết này theo đúng cấu trúc BƯỚC 1/2/3 như các bài trên.
+    </div>
+
+    <div class="pagenav">
+      <a href="#bai6"><span class="lbl">← Trước đó</span>Hướng dẫn tạo mật khẩu mới</a>
+      <a href="#bai8" style="text-align:right;"><span class="lbl">Tiếp theo →</span>Sự khác biệt của Givehada</a>
+    </div>
+  </article>
+</div>
+
+<hr class="section-rule">
+
+<!-- ══════════════════════ BÀI 8 ══════════════════════ -->
+<div class="breadcrumb">
+  Trung tâm hướng dẫn <span class="sep">›</span> Giới thiệu <span class="sep current">Sự khác biệt của Givehada</span>
+</div>
+
+<div class="content-wrap">
+  <article class="article" id="bai8">
+    <div class="article-date">Cập nhật: 30/06/2026</div>
+    <h1 class="article-title">Sự khác biệt của Givehada</h1>
+
+    <p class="lede">Givehada xây dựng một <strong>hệ thống vận hành thông minh</strong> dành riêng cho Master — giúp tối ưu tồn kho, tự động hóa việc tính payback, và minh bạch hóa toàn bộ doanh thu. Dưới đây là 5 điểm khác biệt làm nên trải nghiệm vận hành của Master trên Givehada.</p>
+
+    <h2 class="h2 h2-anchor" id="b8-diem1">1. Tối ưu tồn kho — Không lo ứ đọng</h2>
+    <p class="body-text">Chỉ cần nhập lượng hàng vừa đủ để trưng bày và phục vụ khách trực tiếp tại cửa hàng hoặc spa/clinic. Không cần dự trữ số lượng lớn, giảm thiểu rủi ro tồn kho.</p>
+
+    <h2 class="h2 h2-anchor" id="b8-diem2">2. Đặt hàng dễ dàng — Giao tận tay khách</h2>
+    <p class="body-text">Master đặt hàng trực tiếp trên website, nhập địa chỉ của khách hàng, kho công ty sẽ chủ động ship đến tận nơi — nhanh chóng, tiện lợi, không cần trung gian.</p>
+
+    <h2 class="h2 h2-anchor" id="b8-diem3">3. Link Affiliate cá nhân — Tự động tính payback</h2>
+    <p class="body-text">Mỗi Master có link affiliate riêng trên tài khoản. Khi khách hàng mua qua link đó, hệ thống tự động ghi nhận thông tin và cộng payback cho Master — không cần theo dõi thủ công.</p>
+
+    <h2 class="h2 h2-anchor" id="b8-diem4">4. Tạo tài khoản VIP Member cho khách ngay trên website</h2>
+    <p class="body-text">Master có thể chủ động tạo tài khoản Vipmember cho khách hàng của mình ngay trên website. Khách được hưởng chiết khấu ưu đãi, đồng thời hệ thống tự động lưu trữ thông tin và cập nhật payback cho cả đơn hiện tại lẫn các đơn tiếp theo cho Master.</p>
+
+    <h2 class="h2 h2-anchor" id="b8-diem5">5. Minh bạch — Dễ quản lý — Cập nhật mỗi ngày</h2>
+    <p class="body-text">Toàn bộ doanh thu và payback được công khai, rõ ràng theo từng ngày ngay trên hệ thống. Master dễ dàng theo dõi, quản lý và chăm sóc khách hàng của mình một cách chủ động và hiệu quả.</p>
+
+    <hr class="section-rule" style="margin:32px 0;">
+
+    <p class="terms-note">*Các thuật ngữ được sử dụng trong bài viết này:</p>
+    <table class="terms-table">
+      <tr><th>Thuật ngữ</th><th>Định nghĩa</th></tr>
+      <tr><td>Master</td><td>Người trực tiếp bán hàng, chăm sóc khách hàng tại cửa hàng, spa hoặc clinic trong hệ thống Givehada.</td></tr>
+      <tr><td>Pharmer</td><td>Đối tác phân phối/dược sĩ tham gia hệ thống Givehada.</td></tr>
+      <tr><td>Link Affiliate</td><td>Đường link cá nhân hóa gắn với tài khoản Master, dùng để theo dõi đơn hàng và tính payback tự động.</td></tr>
+      <tr><td>Payback</td><td>Khoản hoa hồng/chiết khấu Master nhận được khi khách hàng mua sản phẩm qua link hoặc tài khoản giới thiệu của mình.</td></tr>
+      <tr><td>Vipmember</td><td>Tài khoản khách hàng được Master tạo trên website, giúp khách nhận chiết khấu ưu đãi cho các lần mua hàng.</td></tr>
+    </table>
+
+    <div class="feedback-bar">Nội dung bên trên có ích với bạn không?</div>
+    <div class="pagenav">
+      <a href="#bai7"><span class="lbl">← Trước đó</span>Duy trì tài khoản Master</a>
+      <a href="#bai1" style="text-align:right;"><span class="lbl">Về đầu mục →</span>Hướng dẫn tạo tài khoản</a>
+    </div>
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">Mục lục</div>
+    <ul class="toc-list">
+      <li><a href="#b8-diem1">1. Tối ưu tồn kho</a></li>
+      <li><a href="#b8-diem2">2. Đặt hàng giao tận khách</a></li>
+      <li><a href="#b8-diem3">3. Link Affiliate cá nhân</a></li>
+      <li><a href="#b8-diem4">4. Tạo Vipmember</a></li>
+      <li><a href="#b8-diem5">5. Minh bạch mỗi ngày</a></li>
+    </ul>
+  </aside>
+</div>
+
+</body>
+</html>
